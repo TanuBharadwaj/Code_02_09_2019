@@ -1,0 +1,125 @@
+@XmlRootElement (name="employee")
+public class Employee{
+	private String name;
+	private double salary;
+	private int id;
+        private int rating;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+    public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+
+       public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	
+	@Override
+	public String toString(){
+		return id+"::"+name+"::"+salary+"::"+rating" ;
+	}
+
+}
+
+
+@XmlRootElement
+public class Response {
+
+	private boolean status;
+	private String message;
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+}
+
+-------------------------------------------------------------
+Interface :
+
+public interface EmployeeService {
+
+	public Response addEmployee(Employee e);
+	
+	public Response deleteEmployee(int id);
+	
+	public Employee[] getAllEmployees();
+
+}
+
+********** Start of Case 1 ***********************
+private static Map<Integer,Employee> employees = new HashMap<Integer,Employee>();
+	
+	@Override
+        @POST
+        @Path("/add")
+	public Response addEmployee(Employee e) {
+		Response response = new Response();
+		if(persons.get(p.getId()) != null){
+                     response.setStatus(false);
+		     response.setMessage("Employee already exists");
+			response.setName(Riya);
+			response.setSalary(51,678);
+                        response.setRating(4);
+			return response;
+		}
+		employees.put(p.getId(), p);
+		response.setStatus(true);
+		response.setMessage("Employee created successfully");
+		return response;
+	}
+
+********** End of Case 1 ***********************
+
+********** Start of Case 4 ***********************
+        @Override
+	@GET
+    @Path("/{id}/delete")
+	public Response deleteEmployee(@PathParam("id") int id) {
+		Response response = new Response();
+		if(employees.get(id) == null){
+			response.setStatus(false);
+			response.setMessage("Employee Doesn't Exists");
+			return response;
+		}
+		persons.remove(id);
+		response.setStatus(true);
+		response.setMessage("Employee deleted successfully");
+		return response;
+	}
+********** End of Case 4 ***********************
+
